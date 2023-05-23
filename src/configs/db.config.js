@@ -9,11 +9,11 @@
 
 // module.exports = pool;
 
-const Sequelize = require('sequelize');
+// const Sequelize = require('sequelize');
 
-const db = new Sequelize('be-sd-ciwaregu', 'postgres', 'arz140701', {
-  host: 'localhost',
-  dialect: 'postgres'
-});
+// const db = new Sequelize('be-sd-ciwaregu', 'postgres', 'arz140701', {
+//   host: 'localhost',
+//   dialect: 'postgres'
+// });
 
-module.exports = db;
+// module.exports = db;

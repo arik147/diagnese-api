@@ -1,5 +1,7 @@
-const { Op } = require('sequelize');
-const Galleries = require("../models/galleries.model");
+import { Op } from 'sequelize';
+import { v4 as uuidv4 } from 'uuid';
+// import { Galleries } from "../models/galleries.model.js";
+// import cloudinaryConfig from '../configs/cloudinary.config.js';
 
 async function getMultiple(query){
   
@@ -43,30 +45,25 @@ async function getMultiple(query){
   }
 }
 
-module.exports = {
-  getMultiple
-}
-// import { query } from "../configs/db.config.js";
-import { v4 as uuidv4 } from 'uuid';
-import { Galleries } from "../models/galleries.model.js";
-
-async function createGalleries(responseBody){
+async function createGalleries(request){
 
   // Get request Body
-  const { title, imageUrl, description } = responseBody
+  const { title, description } = request.body
+
+  // const imageUrl = request.file.path
   
   // Error message
-  if (!title || !imageUrl || !description) {
+  if (!title || !description) {
     let message = ""
     
       if (!title ) {
         message += ", title"
       }
       
-      if (!imageUrl) {
+      // if (!imageUrl) {
 
-        message += ", imageUrl"
-      }
+      //   message += ", imageUrl"
+      // }
 
       if (!description) {
         message += ", description"
@@ -80,12 +77,26 @@ async function createGalleries(responseBody){
     }
     
     try {
+      
+      let imageUrl = null
+      let filename = null
 
+      if (request.file) {
+        imageUrl = request.file.path
+        filename = request.file.filename
+        // console.log(request.file)
+      }
+
+      // set default imageUrl if empty
+      const defaultImageUrl = 'https://res.cloudinary.com/dp7yp5kgv/image/upload/v1684334844/galleries/map_uqx7qx.jpg';
+      const finalImageUrl = imageUrl || defaultImageUrl;
+      
       // Create new gallery record using the Galleries model
       const newGallery = await Galleries.create({
         id: uuidv4(),
         title: title,
-        imageUrl: imageUrl,
+        imageUrl: finalImageUrl,
+        filename: filename,
         description: description,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -115,5 +126,6 @@ async function createGalleries(responseBody){
 }
 
 export default {
+  getMultiple,
   createGalleries
 }

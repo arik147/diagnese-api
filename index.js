@@ -1,10 +1,15 @@
-import express from 'express';
-import bodyParser  from 'body-parser';
-import router from './src/routes/index.js';
+import express from "express";
+// import cors from 'cors'
+import router from "./src/routes/index.js";
+import bodyParser from "body-parser";
+// import cookieParser from "cookie-parser";
+// import db from './src/configs/db.config.js';
+// import dotenv from "dotenv";
+// dotenv.config();
 
-const port = process.env.PORT || 3000;
 const app = express();
-const galleriesRouter = require('./src/routes/galleries.route');
+const port = process.env.PORT || 8000;
+
 
 app.use(bodyParser.json());
 app.use(
@@ -13,14 +18,18 @@ app.use(
   })
 );
 
-app.get('/', (req, res) => {
-  res.json({'message': 'ok'});
-})
+// app.use(cors({
+//   origin: '*',
+//   allowedHeaders: ['Content-Type', 'Authorization']
+// }))
 
 app.use(router);
 
-// app.use('/v1/galleries', galleriesRouter);
-app.use('/v1/galleries', galleriesRouter);
+// app.use(cookieParser())
+app.use(express.json())
+app.get('/', (req, res) => {
+  res.json({'message': 'ok'});
+})
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {
@@ -32,5 +41,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(port, '0.0.0.0', () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`Example app listening at port : ${port}`)
 });

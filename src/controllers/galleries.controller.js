@@ -1,25 +1,19 @@
-const galleries = require('../services/galleries.service');
+import galleries from "../services/galleries.service.js";
 
-async function get(req, res, next) {
+const get = async (req, res, next) => {
   try {
     res.json(await galleries.getMultiple(req.query));
   } catch (err) {
-      console.error(`Error while getting programming languages`, err.message);
+      console.error(`Error while getting galleries`, err.message);
       next(err);
   }
 }
 
 
-module.exports = {
-  get
-};
-
-import galleries from "../services/galleries.service.js";
-
-export const create = async (req, res, next) => {
+const create = async (req, res, next) => {
   try {
     // Create data to DB
-    const data = await galleries.createGalleries(req.body);
+    const data = await galleries.createGalleries(req);
     // if Return "Created / 201"
     if (data.code === 201)
     {
@@ -29,7 +23,12 @@ export const create = async (req, res, next) => {
     // return Error
     return res.status(400).json(data);
   } catch (err) {
-    console.error(`Error while creating programming language`, err.message);
+    console.error(`Error while creating gallery`, err.message);
     next(err);
   }
+}
+
+export default {
+  get,
+  create
 }
