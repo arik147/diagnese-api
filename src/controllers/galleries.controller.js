@@ -2,7 +2,7 @@ import galleries from "../services/galleries.service.js";
 
 const get = async (req, res, next) => {
   try {
-    res.json(await galleries.getMultiple(req.query));
+    res.json(await galleries.getMultiple());
   } catch (err) {
       console.error(`Error while getting galleries`, err.message);
       next(err);

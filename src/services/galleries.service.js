@@ -3,29 +3,29 @@ import { v4 as uuidv4 } from 'uuid';
 // import { Galleries } from "../models/galleries.model.js";
 // import cloudinaryConfig from '../configs/cloudinary.config.js';
 
-async function getMultiple(query){
+async function getMultiple(){
   
-  const { title, imageUrl, description } = query;
+  // const { title, imageUrl, description } = query;
 
   try {
 
-    const whereClause = {};
+    // const whereClause = {};
 
-    if (title) {
-      whereClause.title = {
-        [Op.iLike]: `%${title}%`, // use case-insensitive LIKE operator
-      };
-    }
-    if (imageUrl) {
-      whereClause.imageUrl = imageUrl;
-    }
-    if (description) {
-      whereClause.description = {
-        [Op.iLike]: `%${description}%`, // use case-insensitive LIKE operator
-      };
-    }
+    // if (title) {
+    //   whereClause.title = {
+    //     [Op.iLike]: `%${title}%`, // use case-insensitive LIKE operator
+    //   };
+    // }
+    // if (imageUrl) {
+    //   whereClause.imageUrl = imageUrl;
+    // }
+    // if (description) {
+    //   whereClause.description = {
+    //     [Op.iLike]: `%${description}%`, // use case-insensitive LIKE operator
+    //   };
+    // }
 
-    const dbResult = await Galleries.findAll({ where: whereClause });
+    const dbResult = await Galleries.findAll();
 
     // Return the mapped galleries in the response
     return {
