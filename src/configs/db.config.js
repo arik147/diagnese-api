@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 
-const db = new Sequelize('be-sd-ciwaregu', 'postgres', 'arz140701', {
-  host: 'localhost',
+const db = new Sequelize('diagnese_db', 'postgres', 'ciwaregu123', {
+  host: '34.101.200.216',
   dialect: 'postgres'
 });
 

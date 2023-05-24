@@ -1,29 +1,9 @@
-import { Op } from 'sequelize';
 import { v4 as uuidv4 } from 'uuid';
-// import { Galleries } from "../models/galleries.model.js";
-// import cloudinaryConfig from '../configs/cloudinary.config.js';
+import { Galleries } from "../models/galleries.model.js";
 
 async function getMultiple(){
-  
-  // const { title, imageUrl, description } = query;
 
   try {
-
-    // const whereClause = {};
-
-    // if (title) {
-    //   whereClause.title = {
-    //     [Op.iLike]: `%${title}%`, // use case-insensitive LIKE operator
-    //   };
-    // }
-    // if (imageUrl) {
-    //   whereClause.imageUrl = imageUrl;
-    // }
-    // if (description) {
-    //   whereClause.description = {
-    //     [Op.iLike]: `%${description}%`, // use case-insensitive LIKE operator
-    //   };
-    // }
 
     const dbResult = await Galleries.findAll();
 
@@ -78,18 +58,18 @@ async function createGalleries(request){
     
     try {
       
-      let imageUrl = null
-      let filename = null
+      // let imageUrl = null
+      // let filename = null
 
-      if (request.file) {
-        imageUrl = request.file.path
-        filename = request.file.filename
-        // console.log(request.file)
-      }
+      // if (request.file) {
+      //   imageUrl = request.file.path
+      //   filename = request.file.filename
+      //   // console.log(request.file)
+      // }
 
       // set default imageUrl if empty
-      const defaultImageUrl = 'https://res.cloudinary.com/dp7yp5kgv/image/upload/v1684334844/galleries/map_uqx7qx.jpg';
-      const finalImageUrl = imageUrl || defaultImageUrl;
+      // const defaultImageUrl = 'https://res.cloudinary.com/dp7yp5kgv/image/upload/v1684334844/galleries/map_uqx7qx.jpg';
+      // const finalImageUrl = imageUrl || defaultImageUrl;
       
       // Create new gallery record using the Galleries model
       const newGallery = await Galleries.create({
@@ -107,12 +87,7 @@ async function createGalleries(request){
         status: "success",
         code: 201,
         message: 'Gallery created successfully!',
-        data: {
-          galleryId: newGallery.id,
-          title: newGallery.title,
-          imageUrl: newGallery.imageUrl,
-          description: newGallery.description
-        }
+        data: newGallery
       }
     
   } catch (err) {
